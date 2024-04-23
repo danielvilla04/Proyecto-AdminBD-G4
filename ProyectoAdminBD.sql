@@ -141,18 +141,26 @@ CREATE TABLE Facturas (
     fecha_emision DATE,
     fecha_vencimiento DATE,
     numero_fiscal VARCHAR(20),
+    id_empleado INT,
     id_cliente INT,
     cantidad_total DECIMAL(10, 2),
     iva_total DECIMAL(10, 2),
     descuentos_bonificaciones_total DECIMAL(10, 2),
     id_metodo_pago INT,
-     CONSTRAINT fk_factura_cliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
-     CONSTRAINT fk_factura_metodopago FOREIGN KEY (id_metodo_pago) REFERENCES MetodoPago(id_metodo_pago)
+    total NUMBER,
+    CONSTRAINT fk_factura_cliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+    CONSTRAINT fk_factura_empleado FOREIGN KEY (id_empleado) REFERENCES Empleado(id_empleado),
+    CONSTRAINT fk_factura_metodopago FOREIGN KEY (id_metodo_pago) REFERENCES MetodoPago(id_metodo_pago)
+)
+PARTITION BY RANGE (fecha_emision) (
+    PARTITION p2022 VALUES LESS THAN (TO_DATE('2023-01-01', 'YYYY-MM-DD')),
+    PARTITION p2023 VALUES LESS THAN (TO_DATE('2024-01-01', 'YYYY-MM-DD')),
+    PARTITION p2024 VALUES LESS THAN (MAXVALUE)
 );
 
 
 --  tabla DetalleFactura
-CREATE TABLE DetalleFactura (
+CREATE TABLE Detalle_Factura (
     id_detalle_factura INT PRIMARY KEY,
     id_producto INT,
     id_factura INT,
@@ -162,6 +170,12 @@ CREATE TABLE DetalleFactura (
     descuentos_bonificaciones DECIMAL(10, 2),
     iva DECIMAL(10, 2),
     CONSTRAINT fk_detallefactura_factura FOREIGN KEY (id_producto) REFERENCES ProductoServicio(id_producto_servicio)
+)
+PARTITION BY RANGE (total_linea) (
+    PARTITION part1 VALUES LESS THAN (1000),
+    PARTITION part2 VALUES LESS THAN (5000),
+    PARTITION part3 VALUES LESS THAN (10000),
+    PARTITION part4 VALUES LESS THAN (MAXVALUE)
 );
 
 
@@ -182,6 +196,11 @@ CREATE TABLE Venta (
     detalle_venta VARCHAR(255),
     CONSTRAINT fk_venta_empleado FOREIGN KEY (id_empleado) REFERENCES Empleado(id_empleado),
     CONSTRAINT fk_venta_factura FOREIGN KEY (id_factura) REFERENCES Facturas(id_factura)
+)
+PARTITION BY RANGE (fecha_venta) (
+    PARTITION p2022 VALUES LESS THAN (TO_DATE('2023-01-01', 'YYYY-MM-DD')),
+    PARTITION p2023 VALUES LESS THAN (TO_DATE('2024-01-01', 'YYYY-MM-DD')),
+    PARTITION p2024 VALUES LESS THAN (MAXVALUE)
 );
 
 
@@ -191,7 +210,13 @@ CREATE TABLE Pedido (
     detalle_pedido VARCHAR(255),
     dinero_total DECIMAL(10, 2),
     id_cliente INT,
+    fecha_pedido DATE,
     CONSTRAINT fk_pedido_cliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+)
+PARTITION BY RANGE (fecha_pedido) (
+    PARTITION p2022 VALUES LESS THAN (TO_DATE('2023-01-01', 'YYYY-MM-DD')),
+    PARTITION p2023 VALUES LESS THAN (TO_DATE('2024-01-01', 'YYYY-MM-DD')),
+    PARTITION p2024 VALUES LESS THAN (MAXVALUE)
 );
 
 --  tabla DetallePedido
@@ -243,6 +268,11 @@ CREATE TABLE CuentasPorCobrar (
     CONSTRAINT fk_CuentasPorCobrar_cliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
     CONSTRAINT fk_CuentasPorCobrar_empleado FOREIGN KEY (id_encargado) REFERENCES Empleado(id_empleado),
     CONSTRAINT fk_CuentasPorCobrar_factura FOREIGN KEY (id_factura) REFERENCES Facturas(id_factura)
+)
+PARTITION BY RANGE (fecha_vencimiento) (
+    PARTITION p2022 VALUES LESS THAN (TO_DATE('2023-01-01', 'YYYY-MM-DD')),
+    PARTITION p2023 VALUES LESS THAN (TO_DATE('2024-01-01', 'YYYY-MM-DD')),
+    PARTITION p2024 VALUES LESS THAN (MAXVALUE)
 );
 
 
@@ -258,7 +288,13 @@ CREATE TABLE Envio (
     CONSTRAINT fk_envio_cliente FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
     CONSTRAINT fk_envio_direccion FOREIGN KEY (id_direccion) REFERENCES DetalleDireccion(id_direccion),
     CONSTRAINT fk_envio_factura FOREIGN KEY (id_factura) REFERENCES Facturas(id_factura)
+)
+PARTITION BY RANGE (fecha_envio) (
+    PARTITION p2022 VALUES LESS THAN (TO_DATE('2023-01-01', 'YYYY-MM-DD')),
+    PARTITION p2023 VALUES LESS THAN (TO_DATE('2024-01-01', 'YYYY-MM-DD')),
+    PARTITION p2024 VALUES LESS THAN (MAXVALUE)
 );
+
 
 --  tabla CampañaMarketing
 CREATE TABLE CampanaMarketing (
