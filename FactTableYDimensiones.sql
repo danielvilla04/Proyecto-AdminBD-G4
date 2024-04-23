@@ -309,3 +309,23 @@ CREATE TABLE FacturaVenta (
     CONSTRAINT fk_factura_metodo_pago_venta FOREIGN KEY (id_metodo_pago) REFERENCES MetodoPago(id_metodo_pago),
     CONSTRAINT fk_factura_envio_venta FOREIGN KEY (id_envio) REFERENCES Envio(id_envio)
 );
+
+
+-------------Bloque para filtrar las ventas por año, trimestre y ventas totales-------------------------------------------------
+
+SELECT 
+    PS.nombre AS Categoria_Producto,
+    T.mes AS Trimestre,
+    SUM(DF.total_linea) AS Ventas_Totales
+FROM 
+    DetalleFactura DF
+JOIN 
+    ProductoServicio PS ON DF.id_producto = PS.id_producto_servicio
+JOIN 
+    FacturaVenta FV ON DF.id_factura = FV.id_factura
+JOIN 
+    Tiempo T ON FV.fecha_emision = T.fecha
+WHERE 
+    T.ano = 2024 AND T.mes IN ('enero', 'febrero', 'marzo')
+GROUP BY 
+    PS.nombre, T.mes;
