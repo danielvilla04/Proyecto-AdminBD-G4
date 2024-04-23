@@ -60,3 +60,70 @@ CREATE PROFILE clienteTienda_profile LIMIT
     PASSWORD_REUSE_TIME 180
     PASSWORD_REUSE_MAX 10
     PASSWORD_VERIFY_FUNCTION NULL;
+
+
+
+-----------------------------PERMISOS Y PRIVILEGIOS---------------------------------------------------------
+
+-----------ADMIN TIENDA PERMISOS Y PRIVILEGIOS-----------
+GRANT SELECT, INSERT, UPDATE, DELETE ON MetodoPago TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Pais TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Provincia TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Canton TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Distrito TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON DetalleDireccion TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Cliente TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ProductoServicio TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON CategoriaProductoServicio TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Proveedor TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Departamento TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Salario TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Empleado TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Inventario TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Facturas TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON DetalleFactura TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON MetodoPago TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Venta TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Pedido TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON DetallePedido TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Cotizacion TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Compra TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON CuentasPorCobrar TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Envio TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON CampanaMarketing TO adminTienda;
+GRANT SELECT ON Tiempo TO adminTienda;
+GRANT SELECT, INSERT, UPDATE, DELETE ON FacturaVenta TO adminTienda;
+
+---------------------------------------------------------
+--------------------PERMISOS Y PRIVILEGIOS EMPLEADO TIENDA-------
+
+GRANT SELECT, INSERT, UPDATE ON Cliente TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON Empleado TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON Facturas TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON Venta TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON DetallePedido TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON Compra TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON CuentasPorCobrar TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON Envio TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON CampanaMarketing TO empleadoTienda;
+GRANT SELECT, INSERT, UPDATE ON ProductoServicio TO empleadoTienda;
+GRANT SELECT ON MetodoPago TO empleadoTienda;
+GRANT SELECT ON Pais TO empleadoTienda;
+GRANT SELECT ON Provincia TO empleadoTienda;
+GRANT SELECT ON Canton TO empleadoTienda;
+GRANT SELECT ON Distrito TO empleadoTienda;
+GRANT SELECT ON DetalleDireccion TO empleadoTienda;
+GRANT SELECT ON Departamento TO empleadoTienda;
+GRANT SELECT ON Salario TO empleadoTienda;
+GRANT SELECT ON Inventario TO empleadoTienda;
+GRANT SELECT ON Cotizacion TO empleadoTienda;
+GRANT SELECT ON Tiempo TO empleadoTienda;
+--------------------------------PERMISOS Y PRIVILEGIOS CLIENTE TIENDA-------------------------------------
+GRANT SELECT ON MetodoPago TO clienteTienda;
+GRANT SELECT ON Pais TO clienteTienda;
+GRANT SELECT ON Provincia TO clienteTienda;
+GRANT SELECT ON Canton TO clienteTienda;
+GRANT SELECT ON Distrito TO clienteTienda;
+GRANT SELECT ON DetalleDireccion TO clienteTienda;
+GRANT SELECT ON ProductoServicio TO clienteTienda;
+GRANT SELECT ON FacturaVenta TO clienteTienda;
