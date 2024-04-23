@@ -329,3 +329,25 @@ WHERE
     T.ano = 2024 AND T.mes IN ('enero', 'febrero', 'marzo')
 GROUP BY 
     PS.nombre, T.mes;
+
+--------------------------------------------------------------------------------------
+--------------------------Bloque para ver el método de pago por las ventas totales-----------
+SELECT mp.nombre_metodo AS Metodo_Pago, SUM(fv.cantidad_total) AS Ventas_Totales
+FROM FacturaVenta fv
+JOIN MetodoPago mp ON fv.id_metodo_pago = mp.id_metodo_pago
+GROUP BY mp.nombre_metodo;
+
+
+---------------------Bloque para ver el país, año y ventas-----------
+SELECT p.nombre_pais AS Pais, t.ano AS Anio, SUM(fv.cantidad_total) AS Ventas_Totales
+FROM FacturaVenta fv
+JOIN Cliente c ON fv.id_cliente = c.id_cliente
+JOIN DetalleDireccion dd ON c.id_direccion = dd.id_direccion
+JOIN Distrito d ON dd.id_distrito = d.id_distrito
+JOIN Canton ct ON d.id_canton = ct.id_canton
+JOIN Provincia pv ON ct.id_provincia = pv.id_provincia
+JOIN Pais p ON pv.id_pais = p.id_pais
+JOIN Tiempo t ON fv.fecha_emision = t.fecha
+GROUP BY p.nombre_pais, t.ano;
+
+---------------------------------------
