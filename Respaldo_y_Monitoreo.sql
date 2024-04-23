@@ -9,11 +9,9 @@ WHERE elapsed_time > 10000 -- Consultas que han tardado más de 10 segundos
 ORDER BY elapsed_time DESC;
 
 
-SELECT s.sid, s.serial#, s.username, s.machine, s.program, s.status,
-       t.sql_id, t.sql_child_number, t.sql_text
-FROM v$session s
-JOIN v$sql t ON s.sql_id = t.sql_id
-WHERE s.status = 'ACTIVE';
+SELECT sid, serial#, username, machine, program, status
+FROM v$session
+WHERE status = 'ACTIVE';
 
 --respaldo y recuperación
 
